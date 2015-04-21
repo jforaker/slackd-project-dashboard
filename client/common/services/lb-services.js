@@ -1,3 +1,5 @@
+/* jshint ignore:start */
+
 (function(window, angular, undefined) {'use strict';
 
 var urlBase = "/api";
@@ -1674,3 +1676,4 @@ module
   });
 
 })(window, window.angular);
+/* jshint ignore:end */
