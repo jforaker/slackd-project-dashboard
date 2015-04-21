@@ -44,7 +44,7 @@ angular.module('Resources', [])
         };
 
 
-        resources.findAll = function (name, url) {
+        resources.findAll = function () {
             var config = {
                 method: 'GET',
                 url: apiUrl + '/Resources'
