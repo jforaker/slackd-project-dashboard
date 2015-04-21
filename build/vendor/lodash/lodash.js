@@ -1,6 +1,6 @@
 /**
  * @license
- * lodash 3.3.1 (Custom Build) <https://lodash.com/>
+ * lodash 3.3.1 (Customx Build) <https://lodash.com/>
  * Build: `lodash modern -o ./lodash.js`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.8.2 <http://underscorejs.org/LICENSE>
