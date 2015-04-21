@@ -1,0 +1,30 @@
+<div class="jumbotron">
+    <h1>JAKT Resources/SDK's</h1>
+
+    <form name="home.resource_form" class="form-inline"
+          ng-submit="home.addResource(home.resource_form)">
+
+        <div class="form-group">
+            <label>Resource name</label>
+            <input type="text" class="form-control" placeholder="Resource name"
+                   ng-model="home.resource_form.name">
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input type="text" class="form-control" placeholder="Resource url"
+                   ng-model="home.resource_form.url">
+        </div>
+        <button type="submit" class="btn btn-large btn-success">
+            <i class="fa fa-download"></i>Submit</button>
+
+    </form>
+
+    <ul class="list-group">
+        <li ng-repeat="r in home.resources" class="list-group-item">
+            <p>{{ r.name }}</p>
+            <a href="{{ r.url }}" target="_blank">{{ r.url }}</a>
+        </li>
+    </ul>
+
+
+</div>
