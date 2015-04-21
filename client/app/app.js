@@ -1,3 +1,5 @@
+window.apiUrl = 'https://still-hollows-2130.herokuapp.com/api';//'http://localhost:3000/api/Resources'
+
 angular.module('ngbp-gulp', [
 	//Core
 	'templates-app',

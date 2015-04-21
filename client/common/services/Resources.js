@@ -4,38 +4,10 @@ angular.module('Resources', [])
 
         var resources = {};
 
-
-
-        resources.edit = function (data) {
-            console.log('data  edit reminder', data);
-
-            var submitEditReminder = function (configs) {
-                return $http(configs).then(function (response) {
-
-                    console.log('response from submitEditReminder Service ', response);
-
-                    return response.data;
-                })
-                    ;
-            };
-
-            var config = {
-                method: 'PATCH',
-                //url: API_URL + 'assignments/' + data.id + '/',
-                //data: {
-                //    title: data.title,
-                //    due: moment(data.due).seconds(0).milliseconds(0).format(),
-                //    estimated_time: data.estimated_time
-                //}
-            };
-
-            return submitEditReminder(config);
-        };
-
         resources.deleteOne = function (assignment, type) {
             var config = {
                 method: 'DELETE',
-                //url: API_URL + 'assignments/' + assignment.id + '/'
+                //url: apiUrl + '/Resources',
             };
 
             return $http(config)
@@ -54,7 +26,7 @@ angular.module('Resources', [])
         resources.add = function (name, url) {
             var config = {
                 method: 'POST',
-                url: 'http://localhost:3000/api/Resources',
+                url: apiUrl + '/Resources',
                 data: {
                     name: name,
                     url: url
@@ -75,7 +47,7 @@ angular.module('Resources', [])
         resources.findAll = function (name, url) {
             var config = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/Resources'
+                url: apiUrl + '/Resources'
             };
 
             return $http(config)
