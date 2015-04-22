@@ -19,7 +19,6 @@ angular.module('ngbp-gulp', [
 
 	.config(function myAppConfig($stateProvider, $urlRouterProvider, $locationProvider) {
 		$urlRouterProvider.otherwise('/home');
-        //$locationProvider.html5Mode(true);
     })
 
 	.run(function run() {
