@@ -1,5 +1,5 @@
 ### Installation
-clone repo 
+clone repo
 
 open two terminal tabs - first in root, other in /client
 
@@ -7,11 +7,11 @@ in root: `npm install` then `bower install`
 
 in /client run `gulp —dev` - this will:
 
-- generate frontend build directory with angular app set up 
+- generate frontend build directory with angular app set up
 - watch for changes in the angular js/less/html files and auto build/auto inject scripts to build/index.html (which is bound to the loopback server static files server)
 
 ### Set up Loopback
-What is it? http://loopback.io/ 
+What is it? http://loopback.io/
 
 `npm install -g strongloop`
 
@@ -21,7 +21,7 @@ Now Add a postgres db:  `slc loopback:datasource postgres` (where “postgres”
 
 Start Postgres on your machine (spotlight search Postgres > open psql). Available here http://postgresapp.com/ if you don't have it.
 
-*Optional (Resource model will already be created) 
+*Optional (Resource model will already be created)
 - Create a model with the Loopback cli:  `slc loopback:model Resource` - The generator guides you through creating your model. Enter the values highlighted in blue. To accept the default, just press Enter.
 
 Test run the app with either `node .` or `slc run`
@@ -37,11 +37,9 @@ Load http://0.0.0.0:3000/explorer to see the built-in API Explorer.
           "connector": "memory"
      },
      “postgres": {
-          "name": “postgres",
-          "connector": "postgresql",
           "host": "localhost",
           "port": 5432,
-          "name": "pgDs",
+          "name": "postgres",
           "connector": "postgresql"
     }
 }
@@ -54,11 +52,11 @@ Follow the steps here http://docs.strongloop.com/display/public/LB/Connecting+to
 Update package.json to add the following line so the app will use the latest stable version of Node.js:
 
  ```
-       "engines": {        
-              "node": "0.10.x"     
+       "engines": {
+              "node": "0.10.x"
        }
- ``` 
- 
+ ```
+
 Create a Procfile in the root directory of your app that contains the following: `web: slc run`
 
 run `heroku login`
@@ -93,4 +91,4 @@ module.exports = {
 `node autoupdate.js`  and/or `node automigrate.js`
 
 - exit heroku bash. then run `heroku ps:scale web=1` and `heroku restart`
-> open the app 
+> open the app
