@@ -21,7 +21,8 @@ Now Add a postgres db:  `slc loopback:datasource postgres` (where “postgres”
 
 Start Postgres on your machine (spotlight search Postgres > open psql). Available here http://postgresapp.com/ if you don't have it.
 
-*Optional (Resource model will already be created) - Create a model with the Loopback cli:  `slc loopback:model Resource` - The generator guides you through creating your model. Enter the values highlighted in blue. To accept the default, just press Enter.
+*Optional (Resource model will already be created) 
+- Create a model with the Loopback cli:  `slc loopback:model Resource` - The generator guides you through creating your model. Enter the values highlighted in blue. To accept the default, just press Enter.
 
 Test run the app with either `node .` or `slc run`
 
