@@ -13,13 +13,19 @@ in /client run `gulp —dev` - this will:
 ### Set up Loopback
 What is it? http://loopback.io/ 
 
-Create a model with the Loopback cli:  `slc loopback:model Account` - The generator guides you through creating your model. Enter the values highlighted in blue. To accept the default, just press Enter.
+`npm install -g strongloop`
+
+`npm install loopback`
+
+Now Add a postgres db:  `slc loopback:datasource postgres` (where “postgres” is the name we chose for the db - can be any name)
+
+Start Postgres on your machine (spotlight search Postgres > open psql). Available here http://postgresapp.com/ if you don't have it.
+
+*Optional (Resource model will already be created) - Create a model with the Loopback cli:  `slc loopback:model Resource` - The generator guides you through creating your model. Enter the values highlighted in blue. To accept the default, just press Enter.
 
 Test run the app with either `node .` or `slc run`
 
 Load http://0.0.0.0:3000/explorer to see the built-in API Explorer.
-
-Now Add a postgres db:  `slc loopback:datasource postgres` (where “postgres” is the name we chose for the db - can be any name)
 
 > make sure server/datasources.json matches your database name, for example:
 
