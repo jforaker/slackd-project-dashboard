@@ -278,7 +278,7 @@ catch(err) { module = angular.module("templates-app", []); }
 module.run(["$templateCache", function($templateCache) {
   $templateCache.put("home/home.tpl.html",
     "<div class=\"jumbotron\">\n" +
-    "    <h1>JAKT Resources/SDK's</h1>\n" +
+    "    <h1>Resources foo </h1>\n" +
     "\n" +
     "    <form name=\"home.resource_form\" class=\"form-inline\"\n" +
     "          ng-submit=\"home.addResource(home.resource_form)\">\n" +

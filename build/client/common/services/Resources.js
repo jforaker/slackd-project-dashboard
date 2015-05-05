@@ -53,7 +53,6 @@ angular.module('Resources', [])
             return $http(config)
                 .then(function (response) {
                     if (response) {
-
                         return response.data;
                     }
                 }, function (error) {

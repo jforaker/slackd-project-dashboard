@@ -4,11 +4,13 @@
     "connector": "memory"
   },
   "pgDs": {
-    "name": "pgDs",
-    "connector": "postgresql",
     "host": "localhost",
     "port": 5432,
     "name": "pgDs",
+    "connector": "postgresql"
+  },
+  "postgres": {
+    "name": "postgres",
     "connector": "postgresql"
   }
 }

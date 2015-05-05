@@ -27,7 +27,7 @@
     "public": false
   },
   "Resource": {
-    "dataSource": "pgDs",
+    "dataSource": "postgres",
     "public": true
   }
 }

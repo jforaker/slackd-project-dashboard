@@ -13,7 +13,7 @@ var accounts = [
         lastModifiedAt: new Date()
     }
 ];
-var dataSource = app.dataSources.pgDs;
+var dataSource = app.dataSources.postgres;
 
 dataSource.automigrate('Resource', function (err) {
     if (err) console.log(err);
