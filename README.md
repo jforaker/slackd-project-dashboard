@@ -3,7 +3,7 @@ clone repo
 
 open two terminal tabs - first in root, other in /client
 
-in root: `npm install` then `bower install`
+in root: `npm install` then cd to client/ and `npm install` and then `bower install`
 
 in /client run `gulp —dev` - this will:
 
