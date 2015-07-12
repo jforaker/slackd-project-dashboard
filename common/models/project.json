@@ -1,0 +1,33 @@
+{
+  "name": "project",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "percent_complete": {
+      "type": "number"
+    },
+    "daysLeft": {
+      "type": "string"
+    },
+    "daysOver": {
+      "type": "string"
+    },
+    "daysEarly": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

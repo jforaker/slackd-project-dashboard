@@ -1,30 +1,82 @@
-<div class="jumbotron">
-    <h1>Resources foo </h1>
+<div class="row">
+    <h1>Projects </h1>
 
     <form name="home.resource_form" class="form-inline"
-          ng-submit="home.addResource(home.resource_form)">
+          ng-submit="home.addProject(home.resource_form)">
 
         <div class="form-group">
             <label>Resource name</label>
             <input type="text" class="form-control" placeholder="Resource name"
                    ng-model="home.resource_form.name">
         </div>
-        <div class="form-group">
-            <label>URL</label>
-            <input type="text" class="form-control" placeholder="Resource url"
-                   ng-model="home.resource_form.url">
-        </div>
         <button type="submit" class="btn btn-large btn-success">
-            <i class="fa fa-download"></i>Submit</button>
+            <i class="fa fa-download"></i>Submit
+        </button>
 
     </form>
+</div>
 
-    <ul class="list-group">
-        <li ng-repeat="r in home.resources" class="list-group-item">
-            <p>{{ r.name }}</p>
-            <a href="{{ r.url }}" target="_blank">{{ r.url }}</a>
-        </li>
-    </ul>
+<ul>
+    <li ng-repeat="(key,val) in groups" style="width: 200px; display: inline-block;border: 1px solid">{{key}}:
+        <p>Time under/over</p>
 
+        <p>Time Left (from dev)</p>
+        <p>TOTAL_MAN_DAYS = {{ val.TOTAL_MAN_DAYS }}</p>
+
+        <p>Time used</p>
+    </li>
+</ul>
+
+<!--foo-->
+<a href ng-click="float()">hello</a>
+
+<div class="row">
+    <div class="col-lg-12">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Projects">
+                <a class="btn btn-lg btn-danger" data-animation="am-fade-and-slide-top"
+                        template="partials/modal.tpl.html" bs-modal="modal" data-html="true">Custom Modal
+                    <br>
+                    <small>Add project</small>
+                </a>
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Project</th>
+                            <th>Status</th>
+                            <th>daysLeft</th>
+                            <th>Lead</th>
+                            <th>Progress</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="r in home.projects">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.status }}</td>
+                            <td>{{ r.daysLeft }}</td>
+                            <!--<td>{{ r.percent_complete }}</td>-->
+                            <!--<td>-->
+                                <!--<canvas id="doughnut-{{ r.id }}" legend="true"-->
+                                        <!--class="chart chart-doughnut"-->
+                                        <!--data="data[$index]"-->
+                                        <!--labels="labels">-->
+                                <!--</canvas>-->
+                            <!--</td>-->
+                            <td>leader</td>
+                            <td>
+                                <progressbar class="progress-striped" value="r.percent_complete" type="{{type}}"></progressbar>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
 
 </div>

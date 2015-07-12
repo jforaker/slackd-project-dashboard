@@ -11,7 +11,7 @@
  */
 
 @import '../../vendor/bootstrap/less/bootstrap.less';
-
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 
 /**
  * This is our main variables file. We must include it last so we can overwrite any variable
@@ -24,6 +24,22 @@
 /**
  * Typography
  */
+//** Load fonts from this directory.
+@icon-font-path: "../../vendor/bootstrap/fonts/";
+//** File name for all font files.
+@icon-font-name: "glyphicons-halflings-regular";
+//** Element ID within SVG icon file.
+@icon-font-svg-id: "glyphicons_halflingsregular";
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('@{icon-font-path}@{icon-font-name}.eot');
+    src: url('@{icon-font-path}@{icon-font-name}.eot?#iefix') format('embedded-opentype'),
+    url('@{icon-font-path}@{icon-font-name}.woff2') format('woff2'),
+    url('@{icon-font-path}@{icon-font-name}.woff') format('woff'),
+    url('@{icon-font-path}@{icon-font-name}.ttf') format('truetype'),
+    url('@{icon-font-path}@{icon-font-name}.svg#@{icon-font-svg-id}') format('svg');
+}
 
 @font-face {
   font-family: 'Roboto';

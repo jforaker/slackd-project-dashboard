@@ -16,13 +16,16 @@ var gulp = require('gulp'),
 	changed = require('gulp-changed'),
 	header = require('gulp-header'),
 	fs = require('fs'),
-	bump = require('gulp-bump'),
-	ngAnnotate = require('gulp-ng-annotate'),
 	config = require('./build.config.js'),
 	pkg = require('./package.json'),
 	gutil = require('gulp-util'),
 	http = require('http'),
-	ecstatic = require('ecstatic')
+	ecstatic = require('ecstatic'),
+    replace = require('gulp-replace-task'),
+    sequence = require('run-sequence'),
+    autoprefixer = require('gulp-autoprefixer'),
+    chalk = require('chalk'),
+    flags = require('minimist')(process.argv.slice(2))
 	;
 
 
@@ -39,20 +42,25 @@ gulp.task('copy', function () {
 			.pipe(changed(config.build_dir + '/assets'))
 			.pipe(gulp.dest(config.build_dir + '/assets')),
 
-		src = gulp.src(['client/**/*.js', '!client/**/*.spec.js', '!client/assets/**/*.js'])
-			.pipe(changed(config.build_dir + '/client'))
-			.pipe(gulp.dest(config.build_dir + '/client')),
+        src = gulp.src(['client/**/*.js', '!client/**/*.spec.js', '!client/assets/**/*.js'])
+            .pipe(changed(config.build_dir + '/client'))
+            .pipe(gulp.dest(config.build_dir + '/client')),
 
-		vendorjsfiles = gulp.src(config.vendor_files.js, {base: '.'})
-			.pipe(changed(config.build_dir))
-			.pipe(gulp.dest(config.build_dir)),
+        vendorjsfiles = gulp.src(config.vendor_files.js, {base: '.'})
+            .pipe(changed(config.build_dir))
+            .pipe(gulp.dest(config.build_dir)),
 
-		vendorcssfiles = gulp.src(config.vendor_files.css, {base: '.'})
-			.pipe(changed(config.build_dir))
-			.pipe(gulp.dest(config.build_dir))
-		;
+        vendorcssfiles = gulp.src(config.vendor_files.css, {base: '.'})
+            .pipe(changed(config.build_dir))
+            .pipe(gulp.dest(config.build_dir)),
 
-	return merge(assets, svg, src, vendorjsfiles, vendorcssfiles);
+        vendorfonts = gulp.src(config.vendor_files.fonts, {base: '.'})
+            .pipe(changed(config.build_dir))
+            .pipe(gulp.dest(config.build_dir))
+        ;
+
+
+	return merge(assets, svg, src, vendorjsfiles, vendorfonts, vendorcssfiles);
 });
 
 gulp.task('less', function () {
@@ -105,6 +113,7 @@ var indexTask = function () {
 			config.vendor_files.js,
 			'client/**/*.js',
 			config.vendor_files.css,
+            config.vendor_files.fonts,
 			'templates-common.js',
 			'templates-app.js',
 			'assets/' + pkg.name + '-' + pkg.version + '.css'
@@ -161,7 +170,7 @@ gulp.task('watch', ['svgstore'], function () {
 		'less'
 	]);
 	gulp.watch(['client/**/*.js'], [
-		'jshint',
+		//'jshint',
 		'copy'
 	]);
 	gulp.watch([config.app_files.atpl, config.app_files.ctpl], [
@@ -175,16 +184,63 @@ gulp.task('watch', ['svgstore'], function () {
 	]);
 });
 
-gulp.task('server', function () {
-	http.createServer(ecstatic({root: __dirname + '/build'}))
-		.listen(8080);
-	gutil
-		.log(gutil.colors.green('HTTP server listening on port 8080'));
+//gulp.task('server', function () {
+//	http.createServer(ecstatic({root: __dirname + '/build'}))
+//		.listen(8080);
+//	gutil
+//		.log(gutil.colors.green('HTTP server listening on port 8080'));
+//});
+
+//gulp.task('default', [
+//	//'jshint',
+//	//'server',
+//	'watch',
+//	'livereload'
+//]);
+
+gulp.task('clean', function (cb) {
+    del([config.build_dir], cb);
 });
 
-gulp.task('default', [
-	//'jshint',
-	//'server',
-	'watch',
-	'livereload'
-]);
+gulp.task('server', function () {
+    var port = 8080;
+    http.createServer(ecstatic({root: __dirname + '/build'})).listen(port);
+    console.log(chalk.green('HTTP server listening on port ' + chalk.blue.underline.bold(port)));
+});
+/**
+ ***************************
+ * Default task reads a flag prefixed with "--"
+ * gulp --dev
+ * gulp --prod
+ ***************************
+ */
+
+gulp.task('default', function () {
+
+    if (flags.dev) {
+        sequence(
+            'clean',
+            'svgstore',
+            'server',
+            'watch',
+            'livereload',
+            function () {
+                console.log(chalk.green('Going into dev mode...'))
+            }
+        )
+
+    } else if (flags.production || flags.prod) {
+        sequence(
+            'clean:prod',
+            'production-copy',
+            'production-concat',
+            'production-index',
+            function () {
+                console.log(chalk.green('Production version built.'))
+            }
+        )
+
+    } else {
+        console.log(chalk.bold.red('Please specify flag with --dev or --production'))
+    }
+});

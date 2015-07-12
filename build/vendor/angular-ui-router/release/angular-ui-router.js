@@ -2,7 +2,7 @@
  * State-based routing for AngularJS
  * @version v0.2.13
  * @link http://angular-ui.github.com/
- * @license MITs License, http://www.opensource.org/licenses/MIT
+ * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 
 /* commonjs package manager support (eg componentjs) */

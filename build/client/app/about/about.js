@@ -1,4 +1,4 @@
-angular.module('ngbp-gulp.about', [
+angular.module('jakt-admin-dashboard.about', [
 	'ui.router',
 	'placeholders'
 ])
