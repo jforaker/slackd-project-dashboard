@@ -32,13 +32,19 @@ Update.prototype.sendUpdate = function (update) {
 
     inspect(obj, 'obj');
 
+    //todo fix mapping issue
+
+
+
     var options = {
-        body: {
-            daysLeft: obj.daysLeft
-        },
+        body: _.pick(obj, 'daysEarly', 'daysOver', 'daysLeft', 'percent_complete', 'status'),
         json: true,
-        uri: utils.API_URL + '/' + utils.maps[obj.project]
+        uri: utils.API_URL + utils.maps[obj.project]
     };
+
+    inspect(options, 'options');
+
+
     var callBack = function (error, response, body) {
         if (error) {
             def.reject({status: 500, data: {error: error.message}});

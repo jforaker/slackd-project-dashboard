@@ -1,7 +1,8 @@
 var inspect = require('eyespect').inspector(),
     request = require('request'),
     $ = require('jquery-deferred'),
-    utils = require('./util')
+    utils = require('./util'),
+    _ = require('lodash')
     ;
 
 function Slack(channel) {
@@ -17,11 +18,10 @@ Slack.prototype.postMessage = function (info) {
 
     var options = {
         body: {
-            text: "thanks for the update. I will tell the boss "
-                + info.name
-                + ' has '
-                + info.daysLeft
-                + ' days left'
+            text: "thanks for the update. I will tell the boss " + info.name
+                + (info.daysLeft ? ' has ' : 'is')
+                + (info.daysLeft ? info.daysLeft + ' days left' : '')
+                + (info.daysOver ? ' and is ' + info.daysOver + ' days over' : '')
             ,
             channel: _that.channel
         },
@@ -33,6 +33,7 @@ Slack.prototype.postMessage = function (info) {
         if (error) {
             def.reject({status: 500, data: {error: error.message}});
         } else if (response.statusCode == 200) {
+            inspect(body, 'Slack success body');
             def.resolve(body);
         } else {
             def.reject(body);

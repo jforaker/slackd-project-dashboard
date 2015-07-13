@@ -26,10 +26,6 @@
     "dataSource": "db",
     "public": false
   },
-  "Resource": {
-    "dataSource": "postgres",
-    "public": true
-  },
   "project": {
     "dataSource": "postgres",
     "public": true

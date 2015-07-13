@@ -1,41 +1,7 @@
-/*
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var bodyParser = require('body-parser');
-
-var app = module.exports = loopback();
-app.use(bodyParser.urlencoded({extended: false}));
-
-app.start = function () {
-    // start the web server
-    return app.listen(function () {
-        app.emit('started');
-        console.log('Web server listening at: %s', app.get('url'));
-    });
-};
-
-// Bootstrap the application, configure models, datasources and middleware.
-// Sub-apps like REST API are mounted via boot scripts.
-boot(app, __dirname, function (err) {
-    if (err) throw err;
-
-    // start the server if `$ node server.js`
-    if (require.main === module) {
-        app.start();
-    }
-});
-
-
-
-*/
-
-
-var loopback = require('loopback');
-var boot = require('loopback-boot');
-var bodyParser = require('body-parser');
-
 var utils = require('./boot/lib/util');
-
 
 var app = module.exports = loopback();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -60,11 +26,6 @@ if (require.main === module) {
         console.log('a user connected');
 
         utils.setSocket(socket);
-
-        socket.on('chat message', function (msg) {
-            console.log('in server message: ' + msg);
-            app.io.emit('chat message', msg);
-        });
 
         socket.on('disconnect', function () {
             console.log('user disconnected');

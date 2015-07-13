@@ -65,6 +65,7 @@
     "lodash": "^3.10.0",
     "merge-stream": "*",
     "minimist": "^1.1.1",
+    "node-promise": "^0.5.12",
     "request": "^2.58.0",
     "run-sequence": "^1.0.2",
     "streamqueue": "*"

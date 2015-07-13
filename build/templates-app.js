@@ -38,29 +38,24 @@ module.run(["$templateCache", function($templateCache) {
     "</div>\n" +
     "\n" +
     "<ul>\n" +
-    "    <li ng-repeat=\"(key,val) in groups\" style=\"width: 200px; display: inline-block;border: 1px solid\">{{key}}:\n" +
-    "        <p>Time under/over</p>\n" +
+    "    <li ng-repeat=\"group in groups\" style=\"width: 200px; margin: 10px; padding: 10px; display: inline-block;border: 1px solid\">\n" +
+    "        <p>{{ group.project_name }}</p>\n" +
     "\n" +
-    "        <p>Time Left (from dev)</p>\n" +
-    "        <p>TOTAL_MAN_DAYS = {{ val.TOTAL_MAN_DAYS }}</p>\n" +
+    "        <p>Time left: {{ group.daysLeft || 'n/a' }}</p>\n" +
     "\n" +
-    "        <p>Time used</p>\n" +
+    "        <p>Project Duration = {{ group.total_man_days }} days</p>\n" +
+    "\n" +
+    "        <!--time used diff first day to today?-->\n" +
     "    </li>\n" +
     "</ul>\n" +
     "\n" +
     "<!--foo-->\n" +
-    "<a href ng-click=\"float()\">hello</a>\n" +
+    "<a href ng-click=\"float()\">get float</a>\n" +
     "\n" +
-    "<div class=\"row\">\n" +
+    "<div class=\"row\" style=\"display: none;\">\n" +
     "    <div class=\"col-lg-12\">\n" +
     "        <rd-widget>\n" +
-    "            <rd-widget-header icon=\"fa-tasks\" title=\"Projects\">\n" +
-    "                <a class=\"btn btn-lg btn-danger\" data-animation=\"am-fade-and-slide-top\"\n" +
-    "                        template=\"partials/modal.tpl.html\" bs-modal=\"modal\" data-html=\"true\">Custom Modal\n" +
-    "                    <br>\n" +
-    "                    <small>Add project</small>\n" +
-    "                </a>\n" +
-    "            </rd-widget-header>\n" +
+    "            <rd-widget-header icon=\"fa-tasks\" title=\"Projects\"></rd-widget-header>\n" +
     "            <rd-widget-body classes=\"medium no-padding\">\n" +
     "                <div class=\"table-responsive\">\n" +
     "                    <table class=\"table\">\n" +
@@ -70,8 +65,8 @@ module.run(["$templateCache", function($templateCache) {
     "                            <th>Project</th>\n" +
     "                            <th>Status</th>\n" +
     "                            <th>daysLeft</th>\n" +
-    "                            <th>Lead</th>\n" +
     "                            <th>Progress</th>\n" +
+    "                            <th>foo</th>\n" +
     "                        </tr>\n" +
     "                        </thead>\n" +
     "                        <tbody>\n" +
@@ -80,17 +75,8 @@ module.run(["$templateCache", function($templateCache) {
     "                            <td>{{ r.name }}</td>\n" +
     "                            <td>{{ r.status }}</td>\n" +
     "                            <td>{{ r.daysLeft }}</td>\n" +
-    "                            <!--<td>{{ r.percent_complete }}</td>-->\n" +
-    "                            <!--<td>-->\n" +
-    "                                <!--<canvas id=\"doughnut-{{ r.id }}\" legend=\"true\"-->\n" +
-    "                                        <!--class=\"chart chart-doughnut\"-->\n" +
-    "                                        <!--data=\"data[$index]\"-->\n" +
-    "                                        <!--labels=\"labels\">-->\n" +
-    "                                <!--</canvas>-->\n" +
-    "                            <!--</td>-->\n" +
-    "                            <td>leader</td>\n" +
     "                            <td>\n" +
-    "                                <progressbar class=\"progress-striped\" value=\"r.percent_complete\" type=\"{{type}}\"></progressbar>\n" +
+    "                                <progressbar class=\"progress-striped\" value=\"r.daysLeft\" type=\"{{type}}\"></progressbar>\n" +
     "                            </td>\n" +
     "                        </tr>\n" +
     "                        </tbody>\n" +

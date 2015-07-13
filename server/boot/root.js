@@ -34,7 +34,7 @@ module.exports = function (server) {
                 'User-Agent': 'JAKT Dashboard app (jake.foraker@byjakt.com)',
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer a01207d43eb9e7687520b33e01187eaefd51f47e'
+                'Authorization': 'Bearer ' + process.env['FLOAT_API_KEY']
             }
         };
 
@@ -49,13 +49,13 @@ module.exports = function (server) {
             inspect(statusCode, 'statusCode');
             inspect(body, 'body');
 
-            results.json(body);
+            results.json(utils.stashFloatData(body.people));
         });
     });
 
     router.post('/update', function (req, res) {
 
-        console.log('req.body', req.body);
+        inspect(req.body, 'req.body');
 
         if (req.body.text) {
 
