@@ -63,7 +63,7 @@ angular.module('Projects', [])
         resources.float = function () {
             var config = {
                 method: 'GET',
-                url: 'http://localhost:3000' + '/float'
+                url: apiUrl + '/float'
             };
 
             return $http(config)

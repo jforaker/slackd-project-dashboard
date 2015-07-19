@@ -1,4 +1,4 @@
-window.apiUrl = 'http://localhost:3000/api';
+window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com'; // 'http://localhost:3000/api';
 
 angular.module('jakt-admin-dashboard', [
 	//Core
@@ -80,7 +80,7 @@ angular.module('jakt-admin-dashboard', [
 
     .factory('socket', function (socketFactory) {
         //return socketFactory();
-        var myIoSocket = io.connect('http://0.0.0.0:3000/');
+        var myIoSocket = io.connect(apiUrl);
 
         var mySocket = socketFactory({
             ioSocket: myIoSocket
