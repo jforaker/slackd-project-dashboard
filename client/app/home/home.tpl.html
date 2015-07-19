@@ -1,32 +1,36 @@
 <div class="row">
-    <h1>Projects </h1>
+    <h1>JAKT Projects </h1>
 
-    <form name="home.resource_form" class="form-inline"
-          ng-submit="home.addProject(home.resource_form)">
+    <!--<form name="home.resource_form" class="form-inline"-->
+          <!--ng-submit="home.addProject(home.resource_form)">-->
 
-        <div class="form-group">
-            <label>Resource name</label>
-            <input type="text" class="form-control" placeholder="Resource name"
-                   ng-model="home.resource_form.name">
-        </div>
-        <button type="submit" class="btn btn-large btn-success">
-            <i class="fa fa-download"></i>Submit
-        </button>
+        <!--<div class="form-group">-->
+            <!--<label>Resource name</label>-->
+            <!--<input type="text" class="form-control" placeholder="Resource name"-->
+                   <!--ng-model="home.resource_form.name">-->
+        <!--</div>-->
+        <!--<button type="submit" class="btn btn-large btn-success">-->
+            <!--<i class="fa fa-download"></i>Submit-->
+        <!--</button>-->
 
-    </form>
+    <!--</form>-->
+</div>
+<div id="wrapper">
+    <div id="columns">
+        <ul>
+            <li ng-repeat="group in groups | orderBy:'project_name'" class="pin">
+                <p>{{ group.project_name }}</p>
+
+                <p>Time left: {{ group.daysleft || 'n/a' }}</p>
+
+                <p>Project Duration = {{ group.total_man_days }} days</p>
+
+                <!--time used diff first day to today?-->
+            </li>
+        </ul>
+    </div>
 </div>
 
-<ul>
-    <li ng-repeat="group in groups" style="width: 200px; margin: 10px; padding: 10px; display: inline-block;border: 1px solid">
-        <p>{{ group.project_name }}</p>
-
-        <p>Time left: {{ group.daysLeft || 'n/a' }}</p>
-
-        <p>Project Duration = {{ group.total_man_days }} days</p>
-
-        <!--time used diff first day to today?-->
-    </li>
-</ul>
 
 <!--foo-->
 <a href ng-click="float()">get float</a>

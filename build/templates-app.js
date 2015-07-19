@@ -20,34 +20,38 @@ catch(err) { module = angular.module("templates-app", []); }
 module.run(["$templateCache", function($templateCache) {
   $templateCache.put("home/home.tpl.html",
     "<div class=\"row\">\n" +
-    "    <h1>Projects </h1>\n" +
+    "    <h1>JAKT Projects </h1>\n" +
     "\n" +
-    "    <form name=\"home.resource_form\" class=\"form-inline\"\n" +
-    "          ng-submit=\"home.addProject(home.resource_form)\">\n" +
+    "    <!--<form name=\"home.resource_form\" class=\"form-inline\"-->\n" +
+    "          <!--ng-submit=\"home.addProject(home.resource_form)\">-->\n" +
     "\n" +
-    "        <div class=\"form-group\">\n" +
-    "            <label>Resource name</label>\n" +
-    "            <input type=\"text\" class=\"form-control\" placeholder=\"Resource name\"\n" +
-    "                   ng-model=\"home.resource_form.name\">\n" +
-    "        </div>\n" +
-    "        <button type=\"submit\" class=\"btn btn-large btn-success\">\n" +
-    "            <i class=\"fa fa-download\"></i>Submit\n" +
-    "        </button>\n" +
+    "        <!--<div class=\"form-group\">-->\n" +
+    "            <!--<label>Resource name</label>-->\n" +
+    "            <!--<input type=\"text\" class=\"form-control\" placeholder=\"Resource name\"-->\n" +
+    "                   <!--ng-model=\"home.resource_form.name\">-->\n" +
+    "        <!--</div>-->\n" +
+    "        <!--<button type=\"submit\" class=\"btn btn-large btn-success\">-->\n" +
+    "            <!--<i class=\"fa fa-download\"></i>Submit-->\n" +
+    "        <!--</button>-->\n" +
     "\n" +
-    "    </form>\n" +
+    "    <!--</form>-->\n" +
+    "</div>\n" +
+    "<div id=\"wrapper\">\n" +
+    "    <div id=\"columns\">\n" +
+    "        <ul>\n" +
+    "            <li ng-repeat=\"group in groups | orderBy:'project_name'\" class=\"pin\">\n" +
+    "                <p>{{ group.project_name }}</p>\n" +
+    "\n" +
+    "                <p>Time left: {{ group.daysleft || 'n/a' }}</p>\n" +
+    "\n" +
+    "                <p>Project Duration = {{ group.total_man_days }} days</p>\n" +
+    "\n" +
+    "                <!--time used diff first day to today?-->\n" +
+    "            </li>\n" +
+    "        </ul>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<ul>\n" +
-    "    <li ng-repeat=\"group in groups\" style=\"width: 200px; margin: 10px; padding: 10px; display: inline-block;border: 1px solid\">\n" +
-    "        <p>{{ group.project_name }}</p>\n" +
-    "\n" +
-    "        <p>Time left: {{ group.daysLeft || 'n/a' }}</p>\n" +
-    "\n" +
-    "        <p>Project Duration = {{ group.total_man_days }} days</p>\n" +
-    "\n" +
-    "        <!--time used diff first day to today?-->\n" +
-    "    </li>\n" +
-    "</ul>\n" +
     "\n" +
     "<!--foo-->\n" +
     "<a href ng-click=\"float()\">get float</a>\n" +

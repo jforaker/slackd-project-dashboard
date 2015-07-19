@@ -1,15 +1,14 @@
-/**
- * helpers, etc.
- */
-
 var _ = require('lodash');
 var inspect = require('eyespect').inspector();
+var request = require('request');
+var $ = require('jquery-deferred');
 
 module.exports = {
 
     socket: null,
     arr: [],
     groups: [],
+    projects: [],
 
     parseJSON: function (str) {
         var obj;
@@ -26,16 +25,6 @@ module.exports = {
     ROOT_URL: 'http://0.0.0.0:3000/',
 
     API_URL: 'http://0.0.0.0:3000/api/projects/',
-
-    maps: {
-        "AltaIpsum-Frontend": 1,
-        "alta-api": 2,
-        "crashr-ios": 3,
-        "definition": 4,
-        "crashr-backend": 5,
-        "triggers": 6,
-        'RentalTree Design': 15
-    },
 
     getSocket: function () {
         return this.socket;
@@ -58,7 +47,7 @@ module.exports = {
         });
     },
 
-    stashFloatData: function (data) {
+    stashFloatData: function (data, body) {
         var _that = this;
         this.getDupes(data);
         this.groups = _.groupBy(_that.arr, function (a, b) {
@@ -68,6 +57,7 @@ module.exports = {
     },
 
     strip: function (data) {
+        var that = this;
         var o = _.each(data, function (item) {
             var count = 0;
             _.each(item, function (project) {
@@ -75,9 +65,91 @@ module.exports = {
                 _.extend(project, {total_man_days: count});
             });
         });
-        return _.map(_.toArray(o), function (arr) {
+
+        var foo = _.map(_.toArray(o), function (arr) {
+            that.projects.push(_.last(arr));
             return _.last(arr);
         });
-    }
 
+        this.checkExisting(foo);
+        return foo;
+    },
+
+    checkExisting: function (projects) {
+        var that = this;
+        var def = $.Deferred();
+
+        _.each(projects, function (proj) {
+
+            var options = {
+                body: _.pick(proj, 'project_name', 'task_id', 'man_days', 'total_man_days'),
+                json: true,
+                uri: that.API_URL + '/checkExisting?task_id=' + proj.task_id
+            };
+
+            var callBack = function (error, response, body) {
+                if (error) {
+                    def.reject({status: 500, data: {error: error.message}});
+                } else if (response.statusCode == 200) {
+
+                    def.resolve(body).then(function (res) {
+                        if (!res.project) {
+                            that.postNew(proj);
+                        }
+                    });
+                } else {
+                    inspect(body, 'checkExisting reject');
+                    def.reject(body);
+                }
+            };
+            request.get(options, callBack);
+            return def.promise;
+        });
+    },
+
+    findByProjectName: function (name) {
+        var that = this;
+        var def = $.Deferred();
+        var options = {
+            json: true,
+            uri: that.API_URL + 'findByProjectName?project_name=' + name
+        };
+        var callBack = function (error, response, body) {
+            if (error) {
+                def.reject({status: 500, data: {error: error.message}});
+            } else if (response.statusCode == 200) {
+                inspect(body, 'projects/findByTaskId sucess');
+                def.resolve(body);
+            } else {
+                inspect(body, 'projects/findByTaskId reject');
+                def.reject(body);
+            }
+        };
+        request.get(options, callBack);
+        return def.promise();
+    },
+
+    postNew: function (project) {
+        var that = this;
+        var def = $.Deferred();
+
+        var options = {
+            body: project,
+            json: true,
+            uri: that.API_URL
+        };
+
+        var callBack = function (error, response, body) {
+            if (error) {
+                def.reject({status: 500, data: {error: error.message}});
+            } else if (response.statusCode == 200) {
+                inspect(body, 'postNew success');
+                def.resolve(body);
+            } else {
+                inspect(body, 'postNew reject');
+                def.reject(body);
+            }
+        };
+        request.post(options, callBack);
+    }
 };

@@ -29,7 +29,7 @@ module.exports = function (server) {
         var options = {
             method: 'get',
             json: true,
-            url: 'https://api.floatschedule.com/api/v1/tasks',
+            url: 'https://api.floatschedule.com/api/v1/tasks?start_day=2015-01-01&weeks=54',
             headers: {
                 'User-Agent': 'JAKT Dashboard app (jake.foraker@byjakt.com)',
                 'Accept': 'application/json',
@@ -40,7 +40,7 @@ module.exports = function (server) {
 
         request(options, function (err, res, body) {
             if (err) {
-                inspect(err, 'error posting json');
+                inspect(err, 'error posting jsons');
                 return
             }
             var headers = res.headers;

@@ -6,24 +6,34 @@
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
     "status": {
       "type": "string"
     },
     "percent_complete": {
       "type": "number"
     },
-    "daysLeft": {
+    "daysleft": {
       "type": "string"
     },
-    "daysOver": {
+    "daysover": {
       "type": "string"
     },
-    "daysEarly": {
+    "daysearly": {
       "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "project_name": {
+      "type": "string",
+      "required": false
+    },
+    "total_man_days": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],

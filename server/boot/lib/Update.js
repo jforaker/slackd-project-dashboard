@@ -5,10 +5,7 @@ var inspect = require('eyespect').inspector(),
     _ = require('lodash')
     ;
 
-function Update (text) {
-    console.log('this Update', text);
-    this.text = text;
-}
+function Update (text) {}
 
 Update.prototype.sendUpdate = function (update) {
 
@@ -18,10 +15,10 @@ Update.prototype.sendUpdate = function (update) {
 
     var one = val.substr(val.indexOf("project=") + 8);
     var name = one.split(',')[0];
-    var project = name.split(' ')[0];
-    var daysLeft = val.substr(val.indexOf("daysLeft=") + 9);
-    var daysOver = val.substr(val.indexOf("daysOver=") + 9);
-    var daysEarly = val.substr(val.indexOf("daysEarly=") + 10);
+    var project_name = name.split(' ')[0];
+    var daysLeft = val.substr(val.indexOf("daysleft=") + 9);
+    var daysover = val.substr(val.indexOf("daysover=") + 9);
+    var daysearly = val.substr(val.indexOf("daysearly=") + 10);
 
     var properties = val.split(', ');
     var obj = {};
@@ -30,34 +27,37 @@ Update.prototype.sendUpdate = function (update) {
         obj[tup[0]] = tup[1];
     });
 
-    inspect(obj, 'obj');
+    var projectToFind = utils.findByProjectName(obj.project);
 
-    //todo fix mapping issue
+    return projectToFind.then(function (res) {
+
+        var options = {
+            body: _.pick(obj, 'daysearly', 'daysover', 'daysleft', 'percent_complete', 'status'),
+            json: true,
+            uri: utils.API_URL + res.project.id
+        };
+
+        var callBack = function (error, response, body) {
+            if (error) {
+                def.reject({status: 500, data: {error: error.message}});
+            } else if (response.statusCode == 200) {
+                inspect(body, 'Update.prototype.sendUpdate');
+                utils.getSocket().emit('update:success', body);
+                def.resolve(body);
+            } else {
+                inspect(body, 'Update reject');
+                def.reject(body);
+            }
+        };
+
+        request.put(options, callBack);
+        return def.promise();
+
+    }, function (err) {
+        inspect(body, 'Err findByTaskId Promise');
+    });
 
 
-
-    var options = {
-        body: _.pick(obj, 'daysEarly', 'daysOver', 'daysLeft', 'percent_complete', 'status'),
-        json: true,
-        uri: utils.API_URL + utils.maps[obj.project]
-    };
-
-    inspect(options, 'options');
-
-
-    var callBack = function (error, response, body) {
-        if (error) {
-            def.reject({status: 500, data: {error: error.message}});
-        } else if (response.statusCode == 200) {
-            inspect(body, 'Update.prototype.sendUpdate') ;
-            utils.getSocket().emit('update:success', body);
-            def.resolve(body);
-        } else {
-            def.reject(body);
-        }
-    };
-    request.put(options, callBack);
-    return def.promise();
 };
 
 module.exports = Update;

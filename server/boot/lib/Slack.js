@@ -14,16 +14,32 @@ Slack.prototype.postMessage = function (info) {
     var def = $.Deferred();
     var _that = this;
 
+    var projs = _.map(utils.projects, function (proj) {
+        return proj.project_name
+    });
+
     inspect(info, 'info Slack.prototype.postMessage');
 
     var options = {
         body: {
-            text: "thanks for the update. I will tell the boss " + info.name
-                + (info.daysLeft ? ' has ' : 'is')
-                + (info.daysLeft ? info.daysLeft + ' days left' : '')
-                + (info.daysOver ? ' and is ' + info.daysOver + ' days over' : '')
-            ,
-            channel: _that.channel
+            channel: _that.channel,
+            "attachments": [
+                {
+                    "fallback": "Required text summary of the attachment that is shown by clients that understand attachments but choose not to show them.",
+                    "color": "#1abc9c",
+                    "fields": [
+                        {
+                            "title": "thanks for the update.",
+                            "value": "I will tell the boss " + info.project_name
+                            + (info.daysleft ? ' has ' : 'is')
+                            + (info.daysleft ? info.daysleft + ' days left' : '')
+                            + (info.daysover ? ' and is ' + info.daysover + ' days over' : '')
+                            ,
+                            "short": false
+                        }
+                    ]
+                }
+            ]
         },
         json: true,
         url: utils.slackurl
@@ -36,6 +52,7 @@ Slack.prototype.postMessage = function (info) {
             inspect(body, 'Slack success body');
             def.resolve(body);
         } else {
+            inspect(body, 'Slack Error body');
             def.reject(body);
         }
     };
