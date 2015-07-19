@@ -79,14 +79,14 @@ module.exports = {
             'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
             'vendor/angular-cookies/angular-cookies.js',
             'vendor/Chart.js/Chart.min.js',
-            'vendor/angular-chart.js/dist/angular-chart.js',
+            //'vendor/angular-chart.js/dist/angular-chart.js',
             'vendor/angular-socket-io/socket.js'
 		],
 		css: [
 			'vendor/angular-loading-bar/build/loading-bar.css',
             'vendor/rdash-ui/dist/css/rdash.css',
-            'vendor/angular-motion/dist/angular-motion.css',
-            'vendor/angular-chart.js/dist/angular-chart.css'
+            'vendor/angular-motion/dist/angular-motion.css'
+            //'vendor/angular-chart.js/dist/angular-chart.css'
 		],
 		assets: [
 

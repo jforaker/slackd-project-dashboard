@@ -2,7 +2,6 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var bodyParser = require('body-parser');
 var utils = require('./boot/lib/util');
-
 var app = module.exports = loopback();
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -17,12 +16,12 @@ app.start = function () {
         console.log('Web server listening at: %s', app.get('url'));
     });
 };
-
 // start the server if `$ node server/server.js`
 if (require.main === module) {
     //app.start();
-    app.io = require('socket.io')(app.start());
-    app.io.on('connection', function (socket) {
+
+    app.io = require('socket.io').listen(app.start());
+    app.io.sockets.on('connection', function (socket) {
         console.log('a user connected');
 
         utils.setSocket(socket);

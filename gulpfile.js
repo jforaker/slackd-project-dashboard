@@ -21,12 +21,13 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	http = require('http'),
 	ecstatic = require('ecstatic'),
-    replace = require('gulp-replace-task'),
+    //replace = require('gulp-replace-task'),
     sequence = require('run-sequence'),
     autoprefixer = require('gulp-autoprefixer'),
     chalk = require('chalk'),
-    flags = require('minimist')(process.argv.slice(2))
-	;
+    flags = require('minimist')(process.argv.slice(2)),
+    replace = require('gulp-replace')
+    ;
 
 
 /**
@@ -91,6 +92,7 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('html2js', function () {
+
 	var atpls = gulp.src(config.app_files.atpl)
 			.pipe(html2js({base: 'client/app', outputModuleName: 'templates-app'}))
 			.pipe(changed('./build', {extension: '.js'}))
@@ -128,7 +130,7 @@ var indexTask = function () {
 gulp.task('index', [
 	'less',
 	'copy',
-	'html2js'
+    'html2js'
 ], function () {
 	return indexTask();
 });

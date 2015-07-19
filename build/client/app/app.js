@@ -1,4 +1,4 @@
-window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com'; // 'http://localhost:3000/api';
+window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com'; //'http://localhost:3000'
 
 angular.module('jakt-admin-dashboard', [
 	//Core
@@ -25,17 +25,12 @@ angular.module('jakt-admin-dashboard', [
     'jakt-admin-dashboard.rdWidgetBody',
     'jakt-admin-dashboard.rdWidgetFooter',
     'jakt-admin-dashboard.rdWidgetHeader',
-    'chart.js',
+    //'chart.js',
     'btford.socket-io'
 ])
 
-	.config(function myAppConfig($stateProvider, $urlRouterProvider, ChartJsProvider) {
+	.config(function myAppConfig($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/home');
-
-        ChartJsProvider.setOptions({
-            colours: ['#97BBCD', '#DCDCDC', '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
-            responsive: true
-        });
     })
 
 	.run(function run() {
@@ -56,7 +51,7 @@ angular.module('jakt-admin-dashboard', [
 
     .factory('socket', function (socketFactory) {
         //return socketFactory();
-        var myIoSocket = io.connect(apiUrl);
+        var myIoSocket = io.connect(window.location.hostname);
 
         var mySocket = socketFactory({
             ioSocket: myIoSocket
