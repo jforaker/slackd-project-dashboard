@@ -46,7 +46,7 @@ angular.module('jakt-admin-dashboard.home', [
 
         angular.copy(projects, vm.projects);
 
-        console.log('projects', projects);
+        console.log('projects.', projects);
 
         $scope.groups = projects;
 
