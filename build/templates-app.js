@@ -46,7 +46,7 @@ module.run(["$templateCache", function($templateCache) {
     "\n" +
     "                <p>Project Duration = {{ group.total_man_days }} days</p>\n" +
     "\n" +
-    "                <!--time used diff first day to today?-->\n" +
+    "                <!--time used diff first day to today ?-->\n" +
     "            </li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
