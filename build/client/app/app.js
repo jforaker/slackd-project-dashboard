@@ -51,7 +51,7 @@ angular.module('jakt-admin-dashboard', [
 
     .factory('socket', function (socketFactory) {
         //return socketFactory();
-        var myIoSocket = io.connect(window.location.hostname);
+        var myIoSocket = io.connect();
 
         var mySocket = socketFactory({
             ioSocket: myIoSocket
