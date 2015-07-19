@@ -22,7 +22,7 @@ module.exports = {
 
     slackurl: process.env['SLACK_URL'],
 
-    API_URL: process.env['NODE_ENV'] === 'production' ? 'https://shrouded-thicket-2291.herokuapp.com/' : 'http://0.0.0.0:3000/api/projects/',
+    API_URL: process.env['NODE_ENV'] === 'production' ? 'https://shrouded-thicket-2291.herokuapp.com/api/projects/' : 'http://0.0.0.0:3000/api/projects/',
 
     getSocket: function () {
         return this.socket;
