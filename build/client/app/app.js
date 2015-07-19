@@ -1,4 +1,4 @@
-window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com'; // 'http://localhost:3000/api';
+window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com/api'; // 'http://localhost:3000/api';
 
 angular.module('jakt-admin-dashboard', [
 	//Core
@@ -49,32 +49,8 @@ angular.module('jakt-admin-dashboard', [
 			}
 		});
 
-        var mobileView = 992;
-
-        $scope.getWidth = function () {
-            return window.innerWidth;
-        };
-
-        $scope.$watch($scope.getWidth, function (newValue, oldValue) {
-            if (newValue >= mobileView) {
-                if (angular.isDefined($cookieStore.get('toggle'))) {
-                    $scope.toggle = !$cookieStore.get('toggle') ? false : true;
-                } else {
-                    $scope.toggle = true;
-                }
-            } else {
-                $scope.toggle = false;
-            }
-
-        });
-
         $scope.toggleSidebar = function () {
             $scope.toggle = !$scope.toggle;
-            $cookieStore.put('toggle', $scope.toggle);
-        };
-
-        window.onresize = function () {
-            $scope.$apply();
         };
 	})
 
