@@ -22,9 +22,7 @@ module.exports = {
 
     slackurl: process.env['SLACK_URL'],
 
-    ROOT_URL: 'http://0.0.0.0:3000/',
-
-    API_URL: 'http://0.0.0.0:3000/api/projects/',
+    API_URL: process.env['NODE_ENV'] === 'production' ? 'https://jakt-admin-dashboard.herokuapp.com/' : 'http://0.0.0.0:3000/api/projects/',
 
     getSocket: function () {
         return this.socket;
