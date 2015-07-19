@@ -26,7 +26,7 @@ angular.module('Projects', [])
         resources.add = function (name) {
             var config = {
                 method: 'POST',
-                url: apiUrl + '/Projects',
+                url: apiUrl + '/api/Projects',
                 data: {
                     name: name
                 }
@@ -46,7 +46,7 @@ angular.module('Projects', [])
         resources.findAll = function () {
             var config = {
                 method: 'GET',
-                url: apiUrl + '/Projects'
+                url: apiUrl + '/api/Projects'
             };
 
             return $http(config)

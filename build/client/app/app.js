@@ -1,4 +1,4 @@
-window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com/api'; // 'http://localhost:3000/api';
+window.apiUrl = 'https://shrouded-thicket-2291.herokuapp.com'; // 'http://localhost:3000/api';
 
 angular.module('jakt-admin-dashboard', [
 	//Core
