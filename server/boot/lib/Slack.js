@@ -47,6 +47,7 @@ Slack.prototype.postMessage = function (info) {
 
     var callBack = function (error, response, body) {
         if (error) {
+            console.log('error slack', error);
             def.reject({status: 500, data: {error: error.message}});
         } else if (response.statusCode == 200) {
             inspect(body, 'Slack success body');
